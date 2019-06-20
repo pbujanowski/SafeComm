@@ -3,7 +3,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SafeComm.Shared.ViewModels;
-using SafeComm.Core.Models;
+using SafeComm.Shared.Models;
 using System.Net;
 
 namespace SafeComm.Shared.Views
@@ -11,7 +11,7 @@ namespace SafeComm.Shared.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContactDetailPage : ContentPage
     {
-        ContactDetailViewModel viewModel;
+        private readonly ContactDetailViewModel viewModel;
 
         public ContactDetailPage(ContactDetailViewModel viewModel)
         {

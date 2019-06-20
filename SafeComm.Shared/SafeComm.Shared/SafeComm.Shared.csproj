@@ -11,11 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />  
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\SafeComm.Core\SafeComm.Core.csproj" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />  
   </ItemGroup>
 
   <ItemGroup>
@@ -28,5 +25,11 @@
     <Compile Update="Views\NewContactPage.xaml.cs">
       <DependentUpon>NewContactPage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\TestPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

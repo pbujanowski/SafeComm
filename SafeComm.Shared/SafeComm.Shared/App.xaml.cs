@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SafeComm.Shared.Views;
+using SafeComm.Shared.Connection;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace SafeComm.Shared
@@ -11,8 +12,10 @@ namespace SafeComm.Shared
         public App()
         {
             InitializeComponent();
+            DependencyService.Register<IConnectionClient, ConnectionClient>();
+            DependencyService.Register<IConnectionServer, ConnectionServer>();
 
-            MainPage = new MainPage();
+            MainPage = new TestPage();
         }
 
         protected override void OnStart()

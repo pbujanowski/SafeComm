@@ -1,4 +1,4 @@
-﻿using SafeComm.Core.Models;
+﻿using SafeComm.Shared.Models;
 using System;
 using System.Collections.Generic;
 
@@ -25,10 +25,10 @@ namespace SafeComm.Shared.Views
             BindingContext = this;
         }
 
-        async void Save_Clicked(object sender, EventArgs e)
+        private async void Save_Clicked(object sender, EventArgs e)
         {
             MessagingCenter.Send(this, "AddContact", Contact);
-            await Navigation.PopModalAsync();
+            await Navigation.PopModalAsync().ConfigureAwait(false);
         }
     }
 }

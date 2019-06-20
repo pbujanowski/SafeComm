@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SafeComm.Shared.WPF"
         xmlns:wpf="clr-namespace:Xamarin.Forms.Platform.WPF;assembly=Xamarin.Forms.Platform.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="SafeComm" Height="720" Width="1280">
     <Grid>
         
     </Grid>

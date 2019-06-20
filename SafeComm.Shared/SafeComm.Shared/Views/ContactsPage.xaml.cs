@@ -9,7 +9,7 @@ using Xamarin.Forms.Xaml;
 
 using SafeComm.Shared.Views;
 using SafeComm.Shared.ViewModels;
-using SafeComm.Core.Models;
+using SafeComm.Shared.Models;
 
 namespace SafeComm.Shared.Views
 {

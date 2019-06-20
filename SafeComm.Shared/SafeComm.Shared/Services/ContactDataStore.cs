@@ -1,4 +1,4 @@
-﻿using SafeComm.Core.Models;
+﻿using SafeComm.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

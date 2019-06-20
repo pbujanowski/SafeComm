@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using SafeComm.Shared.Services;
-using SafeComm.Core.Models;
+using SafeComm.Shared.Models;
 
 namespace SafeComm.Shared.ViewModels
 {
