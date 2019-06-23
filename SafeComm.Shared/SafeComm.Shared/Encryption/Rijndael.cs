@@ -7,14 +7,21 @@ using System.Text;
 
 namespace SafeComm.Shared.Encryption
 {
-    public static class Rijndael
+    public class Rijndael
     {
-        public static string Encrypt(string clearText, string encryptionKey)
+        byte[] salt1 = new byte[8];
+
+        public string Encrypt(string clearText, string encryptionKey)
         {
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
+            {
+                // Fill the array with a random value.
+                rngCsp.GetBytes(salt1);
+            }
             using (Aes encryptor = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, salt1);
                 encryptor.Key = pdb.GetBytes(32);
                 encryptor.IV = pdb.GetBytes(16);
                 using (MemoryStream ms = new MemoryStream())
@@ -29,13 +36,13 @@ namespace SafeComm.Shared.Encryption
             return clearText;
         }
 
-        public static string Decrypt(string cipherText, string encryptionKey)
+        public string Decrypt(string cipherText, string encryptionKey)
         {
             cipherText = cipherText.Replace(" ", "+");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
             using (Aes encryptor = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, salt1);
                 encryptor.Key = pdb.GetBytes(32);
                 encryptor.IV = pdb.GetBytes(16);
                 using (MemoryStream ms = new MemoryStream())

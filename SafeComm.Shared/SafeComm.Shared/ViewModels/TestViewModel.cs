@@ -15,6 +15,7 @@ namespace SafeComm.Shared.ViewModels
         private readonly IConnectionClient connectionClient;
         private readonly IConnectionServer connectionServer;
         private readonly IDialogService dialogService;
+        private Rijndael rijndael = new Rijndael();
 
         private DiffieHellman diffieHellmanServer;
         private DiffieHellman diffieHellmanClient;
@@ -83,7 +84,7 @@ namespace SafeComm.Shared.ViewModels
                 while (true)
                 {
                     string message = await connectionClient.ReceiveMessageAsync().ConfigureAwait(false);
-                    string decryptedMessage = Rijndael.Decrypt(message, encryptionKey);
+                    string decryptedMessage = rijndael.Decrypt(message, encryptionKey);
                     Log(decryptedMessage);
                 }
             }
@@ -101,12 +102,19 @@ namespace SafeComm.Shared.ViewModels
             try
             {
                 Log(Input);
-                string encryptedMessage = Rijndael.Encrypt(Input, encryptionKey);
+                string encryptedMessage = rijndael.Encrypt(Input, encryptionKey);
 
                 if (connectionClient.IsConnected)
+                {
+                    Log($"Zaszyfrowana wiadomosc: {encryptedMessage}");
                     connectionClient.SendMessage(encryptedMessage);
+                }
+
                 else if (connectionServer.IsConnected)
-                    connectionServer.SendMessage(encryptedMessage);
+                {
+                    Log($"Zaszyfrowana wiadomosc: {encryptedMessage}");
+                    connectionClient.SendMessage(encryptedMessage);
+                }
 
                 Input = string.Empty;
             }
@@ -145,7 +153,7 @@ namespace SafeComm.Shared.ViewModels
                 while (true)
                 {
                     string message = await connectionServer.ReceiveMessageAsync().ConfigureAwait(false);
-                    string decryptedMessage = Rijndael.Decrypt(message, encryptionKey);
+                    string decryptedMessage = rijndael.Decrypt(message, encryptionKey);
                     Log(decryptedMessage);
                 }
             }
